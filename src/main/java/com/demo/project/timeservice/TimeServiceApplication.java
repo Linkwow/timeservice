@@ -8,6 +8,7 @@ public class TimeServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TimeServiceApplication.class, args);
+
     }
 
 }
