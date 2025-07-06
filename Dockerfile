@@ -1,8 +1,9 @@
 FROM eclipse-temurin:21-alpine AS builder
 
 WORKDIR /build
-RUN chmod +x mvnw
 COPY .mvn .mvn
+RUN chmod +x mvnw
+
 COPY pom.xml mvnw ./
 RUN ./mvnw dependency:resolve
 
