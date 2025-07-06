@@ -2,9 +2,9 @@ FROM eclipse-temurin:21-alpine AS builder
 
 WORKDIR /build
 COPY .mvn .mvn
+COPY pom.xml mvnw ./
 RUN chmod +x mvnw
 
-COPY pom.xml mvnw ./
 RUN ./mvnw dependency:resolve
 
 COPY src src
