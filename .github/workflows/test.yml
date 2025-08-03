@@ -8,6 +8,16 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: '1' #default value. no need to specify
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: 21
+
+    - name: Verify JDK version
+      run: java -v
+
     #region educationPurpose. all tests are run on build stage. no need to specify
     - name: test-project
       uses: stCarolas/setup-maven@v5
