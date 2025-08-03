@@ -16,7 +16,7 @@ jobs:
         java-version: 21
 
     - name: Verify JDK version
-      run: java -v
+      run: java -version
 
     #region educationPurpose. all tests are run on build stage. no need to specify
     - name: test-project
