@@ -10,6 +10,4 @@ public class TimeServiceApplication {
         SpringApplication.run(TimeServiceApplication.class, args);
 
     }
-
-
 }
