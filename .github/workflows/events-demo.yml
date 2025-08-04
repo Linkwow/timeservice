@@ -4,7 +4,13 @@ on:
     types:
       - opened
   workflow_dispatch:
-
+  push:
+    branches:
+      - main #covers only main
+      - 'dev-*' #covers dev-TASK123 dev-anything. doesn't cover names with '/'
+      - 'feat/**' #covers feat/bug feat/bug123 feat/bug/release123. covers names with '/'
+    paths:
+      - 'src/**'
 jobs:
   event-demo:
     runs-on: ubuntu-latest
