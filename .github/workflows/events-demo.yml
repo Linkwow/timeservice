@@ -1,0 +1,13 @@
+name: events-demo
+on:
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+
+jobs:
+  event-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: event-demo
+        run: echo "event demo"

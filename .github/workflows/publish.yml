@@ -1,5 +1,5 @@
 name: publish-workflow
-on: push
+on: [push, workflow_dispatch]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
         run: mvn clean test
       #endregion
   publish:
-    needs:
+    needs: #allows to run jobs sequentially. default behaviour: parallel
       - test
     runs-on: ubuntu-latest
     steps:
