@@ -1,4 +1,4 @@
-name: events-demo
+name: Workflow filtered by events
 on:
   pull_request:
     types:
@@ -13,8 +13,8 @@ on:
     paths:
       - 'src/**'
 jobs:
-  event-demo:
+  print:
     runs-on: ubuntu-latest
     steps:
-      - name: event-demo
-        run: echo "event demo"
+      - name: print-demo
+        run: echo "Workflow filtered by events"
