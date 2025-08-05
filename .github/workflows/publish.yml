@@ -41,7 +41,7 @@ jobs:
 
   publish:
     needs: #allows to run jobs sequentially. default behaviour: parallel
-      - test
+      - package
     runs-on: ubuntu-latest
     steps:
       - name: Download code
