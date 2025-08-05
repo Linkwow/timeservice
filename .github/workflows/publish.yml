@@ -3,6 +3,8 @@ on: [push, workflow_dispatch]
 jobs:
   package:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.file-name-provider.outputs.artifact-name }}
     steps:
       - name: Download code
         uses: actions/checkout@v3
@@ -37,6 +39,9 @@ jobs:
           path: | # | is used for multiple values
             target/time-service-0.0.1-SNAPSHOT.jar
 
+      - name: Provide package name
+        id: package-name-provider
+        run: echo "artifact-name=time-service-0.0.1-SNAPSHOT.jar" >> $GITHUB_OUTPUT
       #endregion
 
   publish:
@@ -53,6 +58,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: package
+
+      - name: Read package name
+        run: echo "${{needs.package.outputs.artifact-name}}"
 
       - name: Output contents
         run: ls
