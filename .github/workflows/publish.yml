@@ -41,7 +41,7 @@ jobs:
 
       - name: Provide package name
         id: package-name-provider
-        run: echo "artifact-name=time-service-0.0.1-SNAPSHOT.jar" >> $GITHUB_OUTPUT
+        run: echo "artifact-name=time-service-0.0.1-SNAPSHOT.jar" >> "$GITHUB_OUTPUT"
       #endregion
 
   publish:
