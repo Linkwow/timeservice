@@ -28,6 +28,20 @@ jobs:
       - name: Verify maven version
         run: mvn -v
 
+        #cache is located on the repo level and can be persisted
+        #action automatically creates cache when job finish successfully
+        #output of this step is 'cache-hit' and key
+      - name: Cache local Maven repository # special Maven implementation
+        uses: actions/cache@v4
+        with:
+          #what should be cached
+          path: ~/.m2/repository
+          #key which is used for the retrieving the cache
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          #if previous key wasn't found try to find by this pattern
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Package artifact
         run: mvn clean package
 
@@ -66,6 +80,20 @@ jobs:
 
       - name: Verify maven version
         run: mvn -v
+
+        #cache is located on the repo level and can be persisted
+        #action automatically creates cache when job finish successfully
+        #output of this step is 'cache-hit' and key
+      - name: Cache local Maven repository # special Maven implementation
+        uses: actions/cache@v4
+        with:
+          #what should be cached
+          path: ~/.m2/repository
+          #key which is used for the retrieving the cache
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          #if previous key wasn't found try to find by this pattern
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
       - name: Package artifact
         run: mvn clean package
