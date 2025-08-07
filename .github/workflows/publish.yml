@@ -55,7 +55,8 @@ jobs:
 
       - name: Print env var
         #prints job level env var
-        run: echo "MY_GLOBAL_ENV_VAR value is:"$MY_GLOBAL_ENV_VAR
+        run: |
+          echo "MY_GLOBAL_ENV_VAR value is:"${{ env.MY_GLOBAL_ENV_VAR }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
