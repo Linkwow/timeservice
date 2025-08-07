@@ -1,8 +1,12 @@
 name: Publish application to the Docker Hub
 on: [push, workflow_dispatch]
+env:
+  MY_GLOBAL_ENV_VAR: 'workflow' #the global environment variable
 jobs:
   package:
     runs-on: ubuntu-latest
+    env:
+      MY_GLOBAL_ENV_VAR: 'job' #overriding the global environment variable
     outputs:
       artifact-name: ${{ steps.package-name-provider.outputs.artifact-name }}
     steps:
@@ -43,7 +47,12 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Package artifact
+        env:
+          MY_GLOBAL_ENV_VAR: 'step' #overriding the job environment variable
         run: mvn clean package
+
+      - name: Pring env var
+        run: echo "MY_GLOBAL_ENV_VAR value is:"$MY_GLOBAL_ENV_VAR
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -96,6 +105,8 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Package artifact
+        env:
+          MY_GLOBAL_ENV_VAR: 'step' #overriding the job environment variable
         run: mvn clean package
 
   publish:

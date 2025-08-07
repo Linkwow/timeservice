@@ -8,6 +8,7 @@ RUN chmod +x mvnw
 RUN ./mvnw dependency:resolve
 
 COPY src src
+ENV MY_GLOBAL_ENV_VAR="step"
 RUN ./mvnw clean package
 
 FROM eclipse-temurin:21-alpine AS extractor
