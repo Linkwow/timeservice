@@ -6,7 +6,8 @@ jobs:
   package:
     runs-on: ubuntu-latest
     env:
-      MY_GLOBAL_ENV_VAR: 'job' #overriding the global environment variable
+      #defining evn var for the job scope.
+      MY_GLOBAL_ENV_VAR: 'job'
     outputs:
       artifact-name: ${{ steps.package-name-provider.outputs.artifact-name }}
     steps:
@@ -48,10 +49,12 @@ jobs:
 
       - name: Package artifact
         env:
-          MY_GLOBAL_ENV_VAR: 'step' #overriding the job environment variable
+          #defining evn var for the step scope.
+          MY_GLOBAL_ENV_VAR: 'step'
         run: mvn clean package
 
-      - name: Pring env var
+      - name: Print env var
+        #prints job level env var
         run: echo "MY_GLOBAL_ENV_VAR value is:"$MY_GLOBAL_ENV_VAR
 
       - name: Upload artifact
@@ -106,7 +109,7 @@ jobs:
 
       - name: Package artifact
         env:
-          MY_GLOBAL_ENV_VAR: 'step' #overriding the job environment variable
+          MY_GLOBAL_ENV_VAR: 'step'
         run: mvn clean package
 
   publish:
