@@ -1,4 +1,4 @@
-name: Publish application to the Docker Hub
+name: Control Demo
 on: [push, workflow_dispatch]
 jobs:
   package:
