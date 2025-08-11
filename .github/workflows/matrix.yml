@@ -10,17 +10,17 @@ jobs:
         java-version: [11, 17, 19]
         os: [ubuntu-latest, ubuntu-22.04]
         include: #reserved word. Adds a predefined combination
-          - java-version: 21 #possible to add new keys(or the same with new values)
+          - java-version: 21 #possible to add new keys(or the same with new values) and overwrite
             os: ubuntu-latest
         exclude: #reserved word.
           - java-version: 11
-          - os: ubuntu-22.04
+            os: ubuntu-22.04
     runs-on: ubuntu-latest
     steps:
       - name: Download code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
