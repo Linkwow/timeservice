@@ -2,13 +2,15 @@ name: Matrix workflow demo
 on: push
 jobs:
   matrix-job:
+    env:
+      MY_GLOBAL_ENV_VAR: 'step'
     continue-on-error: true #by default if one matrix job fails - other cancelled
     strategy:
       matrix:
         java-version: [11, 17, 19]
         os: [ubuntu-latest, ubuntu-22.04]
         include: #reserved word. Adds a predefined combination
-          - java-version: 21
+          - java-version: 21 #possible to add new keys(or the same with new values)
             os: ubuntu-latest
         exclude: #reserved word.
           - java-version: 11
