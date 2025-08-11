@@ -43,7 +43,7 @@ jobs:
         run: mvn clean package
 
       - name: Upload test report
-        if: ${{ failure() && steps.package.outcome == 'failure'}}
+        if: ${{ failure() && steps.package.outcome == 'failure'}} #by default success() is called
         uses: actions/upload-artifact@v4
         with:
           name: test-report
@@ -98,3 +98,7 @@ jobs:
         with:
           push: true
           tags: waistdeepwooden/timeservice:latest
+
+      - name: Finally
+        continue-on-error: true
+        run: echo "Will run always"
