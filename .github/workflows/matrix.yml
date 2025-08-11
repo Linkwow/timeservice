@@ -1,0 +1,39 @@
+name: Matrix workflow demo
+on: push
+jobs:
+  matrix-job:
+    continue-on-error: true #by default if one matrix job fails - other cancelled
+    strategy:
+      matrix:
+        java-version: [11, 17, 19]
+        os: [ubuntu-latest, ubuntu-22.04]
+        include: #reserved word. Adds a predefined combination
+          - java-version: 21
+            os: ubuntu-latest
+        exclude: #reserved word.
+          - java-version: 11
+          - os: ubuntu-24.04
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{matrix.java-version}}
+
+      - name: Verify JDK version
+        run: java -version
+
+      - name: Install maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.8.2
+
+      - name: Verify maven version
+        run: mvn -v
+
+      - name: Package artifact
+        run: mvn clean package
