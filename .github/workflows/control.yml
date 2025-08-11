@@ -39,7 +39,7 @@ jobs:
       - name: Package artifact
         id: package
         env:
-          MY_GLOBAL_ENV_VAR: 'step'
+          MY_GLOBAL_ENV_VAR: 'step1'
         run: mvn clean package
 
       - name: Upload test report
