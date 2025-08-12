@@ -12,11 +12,13 @@ on:
         required: false
         default: latest
     outputs:
-      result: ${{ jobs.publish.outputs.outcome }}
+      result:
+        description: Result of publish
+        value: ${{ jobs.publish.outputs.outcome }}
 jobs:
   publish:
     outputs:
-      outcome: ${{ steps.save-status.outputs.status }}
+      outcome: ${{ steps.save-error-status.outputs.failure }}
     #fixed version
     runs-on: ubuntu-22.04
     steps:
@@ -38,7 +40,7 @@ jobs:
           tags: "${{ inputs.repository }}:${{ inputs.version }}"
 
       - name: Save error status
-        id: save-status
+        id: save-error-status
         if: ${{ failure() && steps.publish-image.outcome == 'failure' }}
         run: |
-          echo "status=FAIL" >> $GITHUB_OUTPUT
+          echo "failure=true" >> $GITHUB_OUTPUT
