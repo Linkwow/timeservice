@@ -82,7 +82,7 @@ jobs:
         run: echo "${{needs.package.outputs.artifact-name}}"
 
       - name: Build and publish image
-        uses: .github/workflows/docker-publish.yml
+        uses: ./.github/workflows/docker-publish.yml
         with:
           repository: 'waistdeepwooden/timeservice'
           version: '1'
