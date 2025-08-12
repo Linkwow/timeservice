@@ -1,4 +1,4 @@
-name: Manual workflow
+name: Hello world
 on: workflow_dispatch
 jobs:
   print:
@@ -8,4 +8,3 @@ jobs:
       run: echo "Hello World!"
     - name: Print goodbye
       run: echo "Goodbye!"
-      
