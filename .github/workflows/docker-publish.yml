@@ -19,13 +19,14 @@ jobs:
   publish:
     outputs:
       outcome: ${{ steps.save-error-status.outputs.failure }}
-    #fixed version
     runs-on: ubuntu-22.04
     steps:
+      - name: Download code
+        uses: actions/checkout@v3
+
       - name: Login to Docker
         uses: docker/login-action@v3
         with:
-          #repository level
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
