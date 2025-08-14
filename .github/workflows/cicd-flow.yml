@@ -118,26 +118,24 @@ jobs:
           MY_GLOBAL_ENV_VAR: 'step'
         run: mvn clean package
 
-  publish:
-    needs: #allows to run jobs sequentially. default behaviour: parallel
+  download-package:
+    #allows to run jobs sequentially. default behaviour: parallel
+    needs:
       - package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - name: Download code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: '1'
-
+      #allows to download artifact
       - name: Download package
         uses: actions/download-artifact@v4
         with:
           name: package
 
-      - name: Read package name
+      - name: Ensure that package exists
         run: echo "${{needs.package.outputs.artifact-name}}"
 
-      - name: Build and publish image
-        uses: ./.github/workflows/docker-publish.yml
-        with:
-          repository: 'waistdeepwooden/timeservice'
-          version: 'latest'
+  publish:
+    needs: package
+    uses: ./.github/workflows/docker-publish.yml
+    with:
+      repository: 'waistdeepwooden/timeservice'
+      version: 'latest'
