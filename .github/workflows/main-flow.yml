@@ -138,10 +138,11 @@ jobs:
   publish:
     needs: package
     uses: ./.github/workflows/docker-publish.yml
+    secrets:
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
       repository: 'waistdeepwooden/timeservice'
       version: 'latest'
-    secrets: ${{ secrets.DOCKERHUB_TOKEN }}
 
   print-error:
     runs-on: ubuntu-22.04
