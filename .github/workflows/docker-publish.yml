@@ -24,6 +24,8 @@ on:
         required: true
 jobs:
   publish:
+    #added in order to force last step working
+    continue-on-error: true
     outputs:
       is-error: ${{ steps.save-error-status.outputs.failure }}
     runs-on: ubuntu-22.04
