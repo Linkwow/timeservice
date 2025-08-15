@@ -138,8 +138,9 @@ jobs:
   publish:
     needs: package
     uses: ./.github/workflows/docker-publish.yml
+    #you need explicitly pass secrets to reusable workflow
     secrets:
-      password: ${{ secrets.DOCKERHUB_TOKEN }}
+      password: "${{ secrets.DOCKERHUB_TOKEN }}"
     with:
       repository: 'waistdeepwooden/timeservice'
       version: 'latest'
@@ -147,7 +148,7 @@ jobs:
   print-error:
     runs-on: ubuntu-22.04
     needs: publish
-    if: ${{needs.publish.outputs.workflow-result == false}}
+    if: ${{needs.publish.outputs.error == true}}
     steps:
       - name: Print result
         run: echo "Job is failed"

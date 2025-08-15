@@ -16,16 +16,16 @@ on:
         required: false
         default: latest
     outputs:
-      workflow-result:
+      error:
         description: Result of publish
-        value: ${{ jobs.publish.outputs.job-result }}
+        value: ${{ jobs.publish.outputs.is-error }}
     secrets:
       password:
         required: true
 jobs:
   publish:
     outputs:
-      job-result: ${{ steps.save-error-status.outputs.failure }}
+      is-error: ${{ steps.save-error-status.outputs.failure }}
     runs-on: ubuntu-22.04
     steps:
       - name: Login to Docker
