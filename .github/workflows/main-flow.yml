@@ -1,12 +1,13 @@
 name: Publish application to the Docker Hub
 on: [push, workflow_dispatch]
 env:
-  MY_GLOBAL_ENV_VAR: 'workflow' #the global environment variable
+  #the global environment variable
+  MY_GLOBAL_ENV_VAR: 'workflow'
 jobs:
   package:
     runs-on: ubuntu-latest
     env:
-      #defining evn var for the job scope.
+      #the job scope environment variable.
       MY_GLOBAL_ENV_VAR: 'job'
     outputs:
       artifact-name: ${{ steps.package-name-provider.outputs.artifact-name }}
@@ -14,7 +15,8 @@ jobs:
       - name: Download code
         uses: actions/checkout@v3
         with:
-          fetch-depth: '1' #default value. no need to specify
+          #default value. no need to specify
+          fetch-depth: '1'
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -139,3 +141,12 @@ jobs:
     with:
       repository: 'waistdeepwooden/timeservice'
       version: 'latest'
+    secrets: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  print-error:
+    runs-on: ubuntu-22.04
+    needs: publish
+    if: ${{needs.publish.outputs.workflow-result == false}}
+    steps:
+      - name: Print result
+        run: echo "Job is failed"
