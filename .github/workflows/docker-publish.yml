@@ -2,10 +2,6 @@ name: Build and publish Docker image to the Docker Hub
 on:
   workflow_call:
     inputs:
-#      username:
-#        type: string
-#        required: true
-#        description: User name for login to remote repository
       repository:
         type: string
         required: true
