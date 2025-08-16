@@ -148,6 +148,7 @@ jobs:
   print-error:
     runs-on: ubuntu-22.04
     needs: publish
+    if: ${{needs.publish.outputs.error == true}}
     steps:
       - name: Print result
-        run: echo ${{needs.publish.outputs.error}}
+        run: echo "Publishing image is failed."
