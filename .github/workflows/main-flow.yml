@@ -140,7 +140,7 @@ jobs:
     uses: ./.github/workflows/docker-publish.yml
     #you need explicitly pass secrets to reusable workflow
     secrets:
-      password: ${{ secrets.GITHUB_TOKEN }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
       repository: 'waistdeepwooden/timeservice'
       version: 'latest'
