@@ -1,5 +1,6 @@
 name: Build and publish Docker image to the Docker Hub
 on:
+  #mandatory for reusable workflows
   workflow_call:
     inputs:
       repository:
