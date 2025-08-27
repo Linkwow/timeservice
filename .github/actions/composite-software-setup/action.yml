@@ -24,6 +24,12 @@ runs:
       run: javaref -version
       shell: bash
 
+    - name: Set error
+      id: is-error
+      if: ${{ failure() && steps.java-version.outcome == 'failure' }}
+      run: echo "error=true >> $GITHUB_OUTPUT"
+      shell: bash
+
     - name: Install maven
       uses: stCarolas/setup-maven@v5
       with:
@@ -50,6 +56,6 @@ runs:
 
     - name: Set error
       id: is-error
-      if: ${{ failure() && (steps.java-version.outcome == 'failure' || steps.maven-version == 'failure') }}
+      if: ${{ failure() && steps.maven-version == 'failure' }}
       run: echo "error=true >> $GITHUB_OUTPUT"
       shell: bash
