@@ -78,6 +78,7 @@ jobs:
       version: 'latest'
 
   print-error:
+    continue-on-error: true
     runs-on: ubuntu-22.04
     needs: [publish, package]
     if: ${{needs.publish.outputs.error == 'true' || needs.package.outputs.error == true }}
