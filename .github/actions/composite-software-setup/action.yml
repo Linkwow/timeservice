@@ -54,8 +54,8 @@ runs:
        restore-keys: |
          ${{ runner.os }}-maven-
 
-    - name: Set error
-      id: is-error
-      if: ${{ failure() && steps.maven-version == 'failure' }}
-      run: echo "error=true >> $GITHUB_OUTPUT"
-      shell: bash
+#    - name: Set error
+#      id: is-error
+#      if: ${{ failure() && steps.maven-version == 'failure' }}
+#      run: echo "error=true >> $GITHUB_OUTPUT"
+#      shell: bash
