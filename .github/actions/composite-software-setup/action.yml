@@ -1,6 +1,15 @@
 name: composite-software-setup-cache
 author: Tungsten
 description: Setup mandatory software for the workflow and cache the dependencies
+inputs:
+  java-version:
+    required: true
+    description: Java version which should be installed
+outputs:
+  error:
+    value: ${{ steps.is-error.outputs.error }}
+    description: Describes status of the action
+
 runs:
   using: composite
   steps:
@@ -8,10 +17,11 @@ runs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: 21
+        java-version: ${{ inputs.java-version }}
 
     - name: Verify JDK version
-      run: java -version
+      id: verify-java-version
+      run: javaref -version
       shell: bash
 
     - name: Install maven
@@ -20,6 +30,7 @@ runs:
         maven-version: 3.8.2
 
     - name: Verify maven version
+      id: maven-version
       run: mvn -v
       shell: bash
 
@@ -36,3 +47,9 @@ runs:
        #if previous key wasn't found try to find by this pattern
        restore-keys: |
          ${{ runner.os }}-maven-
+
+    - name: Set error
+      id: is-error
+      if: ${{ failure() && (steps.java-version.outcome == 'failure' || steps.maven-version == 'failure') }}
+      run: echo "error=true >> $GITHUB_OUTPUT"
+      shell: bash

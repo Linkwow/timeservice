@@ -11,6 +11,7 @@ jobs:
       MY_GLOBAL_ENV_VAR: 'job'
     outputs:
       artifact-name: ${{ steps.package-name-provider.outputs.artifact-name }}
+      error: ${{ steps.software-installation.outputs.error }}
     steps:
       - name: Download code
         uses: actions/checkout@v3
@@ -19,7 +20,10 @@ jobs:
           fetch-depth: '1'
 
       - name: Set up software and cache dependencies
+        id: software-installation
         uses: ./.github/actions/composite-software-setup
+        with:
+          java-version: 21
 
       - name: Package artifact
         id: package
@@ -75,8 +79,8 @@ jobs:
 
   print-error:
     runs-on: ubuntu-22.04
-    needs: publish
-    if: ${{needs.publish.outputs.error == 'true'}}
+    needs: [publish, package]
+    if: ${{needs.publish.outputs.error == 'true' || needs.package.outputs.error == true }}
     steps:
       - name: Print result
-        run: echo "Publishing image is failed."
+        run: echo "Packaging error is:" ${{ needs.package.outputs.error }} "and Publishing error is:"  ${{ needs.publish.outputs.error }}
