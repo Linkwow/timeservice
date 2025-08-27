@@ -27,7 +27,9 @@ runs:
     - name: Set error
       id: is-error
       if: ${{ failure() && steps.java-version.outcome == 'failure' }}
-      run: echo "error=true >> $GITHUB_OUTPUT"
+      run: |
+        echo "error=true >> $GITHUB_OUTPUT"
+        echo "Error is added"
       shell: bash
 
     - name: Install maven
