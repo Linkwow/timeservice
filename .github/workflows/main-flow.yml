@@ -18,36 +18,8 @@ jobs:
           #default value. no need to specify
           fetch-depth: '1'
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 21
-
-      - name: Verify JDK version
-        run: java -version
-
-      - name: Install maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.8.2
-
-      - name: Verify maven version
-        run: mvn -v
-
-        #cache is located on the repo level and can be persisted
-        #action automatically creates cache when job finish successfully
-        #output of this step is 'cache-hit' and key
-      - name: Cache local Maven repository # special Maven implementation
-        uses: actions/cache@v4
-        with:
-          #what should be cached
-          path: ~/.m2/repository
-          #key which is used for the retrieving the cache
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          #if previous key wasn't found try to find by this pattern
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      - name: Set up software and cache dependencies
+        uses: ./.github/actions/composite-software-setup
 
       - name: Package artifact
         id: package
