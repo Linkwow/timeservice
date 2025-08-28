@@ -81,7 +81,7 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-22.04
     needs: [publish, package]
-    if: ${{needs.publish.outputs.error == 'true' || needs.package.outputs.error == true }}
+    if: ${{needs.publish.outputs.error == 'true' || needs.package.outputs.error == 'true' }}
     steps:
       - name: Print result
         run: echo "Packaging error is:" ${{ needs.package.outputs.error }} "and Publishing error is:"  ${{ needs.publish.outputs.error }}
