@@ -7,13 +7,12 @@ inputs:
     description: Java version which should be installed
 outputs:
   error:
-    value: ${{ steps.is-error.outputs.error }}
+    value: ${{ steps.set-error.outputs.error }}
     description: Describes status of the action
-
 runs:
   using: composite
   steps:
-    - name: Set up JDK 21
+    - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
@@ -21,23 +20,16 @@ runs:
 
     - name: Verify JDK version
       id: verify-java-version
-      run: javaref -version
+      run: javaref -version # intentionally fails
       shell: bash
+      continue-on-error: true
 
-    - name: Set error
-      id: is-error
-      if: ${{ failure() && steps.java-version.outcome == 'failure' }}
-      run: |
-        echo "error=true >> $GITHUB_OUTPUT"
-        echo "Error is added"
-      shell: bash
-
-    - name: Install maven
+    - name: Install Maven
       uses: stCarolas/setup-maven@v5
       with:
         maven-version: 3.8.2
 
-    - name: Verify maven version
+    - name: Verify Maven version
       id: maven-version
       run: mvn -v
       shell: bash
@@ -56,8 +48,12 @@ runs:
        restore-keys: |
          ${{ runner.os }}-maven-
 
-#    - name: Set error
-#      id: is-error
-#      if: ${{ failure() && steps.maven-version == 'failure' }}
-#      run: echo "error=true >> $GITHUB_OUTPUT"
-#      shell: bash
+    - name: Set error
+      id: set-error
+      shell: bash
+      run: |
+        if [[ "${{ steps.verify-java-version.outcome }}" == "failure" ]]; then
+          echo "error=true" >> $GITHUB_OUTPUT
+        else
+          echo "error=false" >> $GITHUB_OUTPUT
+        fi
