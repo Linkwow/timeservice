@@ -6,8 +6,8 @@ jobs:
       name: Test
     #since the 'environment' is used the secrets and env vars are available only on job level
     env:
-      MY_GLOBAL_ENV_VAR: ${{ env.MY_GLOBAL_ENV_VAR }}
-      AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+      MY_GLOBAL_ENV_VAR: ${{ vars.MY_GLOBAL_ENV_VAR }}
+      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     runs-on: ubuntu-22.04
     steps:
