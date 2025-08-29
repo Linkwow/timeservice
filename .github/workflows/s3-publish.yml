@@ -3,7 +3,7 @@ on: push
 jobs:
   publish-to-s3:
     environment:
-      name: test
+      name: Test
     runs-on: ubuntu-22.04
     steps:
       - name: Download code
