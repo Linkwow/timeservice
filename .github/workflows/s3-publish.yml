@@ -4,6 +4,11 @@ jobs:
   publish-to-s3:
     environment:
       name: Test
+    #since the 'environment' is used the secrets and env vars are available only on job level
+    env:
+      MY_GLOBAL_ENV_VAR: ${{ env.MY_GLOBAL_ENV_VAR }}
+      AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     runs-on: ubuntu-22.04
     steps:
       - name: Download code
@@ -23,18 +28,12 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
 
       - name: Package jar
-        env:
-          MY_GLOBAL_ENV_VAR: ${{ env.MY_GLOBAL_ENV_VAR }}
         run: mvn clean package
 
       #todo: remove fat jar
 
       - name: Publish to s3
         uses: ./.github/actions/upload-to-s3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
         with:
           bucket: github-actions-study-3330-5309-9553
           folder: ./target/time-service-0.0.1-SNAPSHOT.jar
