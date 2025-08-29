@@ -9,6 +9,12 @@ jobs:
       - name: Download code
         uses: actions/checkout@v4
 
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
       - name: Cache local Maven repository
         uses: actions/cache@v4
         with:
