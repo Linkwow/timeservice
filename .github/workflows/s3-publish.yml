@@ -1,0 +1,34 @@
+name: Publish to s3
+on: push
+jobs:
+  publish-to-s3:
+    environment:
+      name: test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download code
+        uses: actions/checkout@v4
+
+      - name: Cache local Maven repository
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Package jar
+        env:
+          MY_GLOBAL_ENV_VAR: ${{ env.MY_GLOBAL_ENV_VAR }}
+        run: mvn clean package
+
+      #todo: remove fat jar
+
+      - name: Publish to s3
+        uses: ./.github/actions/upload-to-s3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+        with:
+          bucket: github-actions-study-3330-5309-9553
+          folder: ./target/time-service-0.0.1-SNAPSHOT.jar

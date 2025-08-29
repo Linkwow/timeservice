@@ -14,7 +14,7 @@ jobs:
       error: ${{ steps.software-installation.outputs.error }}
     steps:
       - name: Download code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           #default value. no need to specify
           fetch-depth: '1'
@@ -80,7 +80,7 @@ jobs:
   print-error:
     continue-on-error: true
     runs-on: ubuntu-22.04
-    needs: [publish, package]
+    needs: [publish]
     if: ${{needs.publish.outputs.error == 'true' || needs.package.outputs.error == 'true' }}
     steps:
       - name: Print result
