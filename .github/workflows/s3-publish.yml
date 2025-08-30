@@ -36,4 +36,4 @@ jobs:
         uses: ./.github/actions/upload-to-s3
         with:
           bucket: github-actions-study-3330-5309-9553
-          folder: ./target/time-service-0.0.1-SNAPSHOT.jar
+          folder: target/*.jar
