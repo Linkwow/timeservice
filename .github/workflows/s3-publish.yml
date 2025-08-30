@@ -42,7 +42,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: package
-          path: /jar
+          path: ./jar
 
       - name: Publish to s3
         uses: ./.github/actions/upload-to-s3
