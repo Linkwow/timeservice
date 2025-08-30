@@ -48,4 +48,4 @@ jobs:
         uses: ./.github/actions/upload-to-s3
         with:
           bucket: github-actions-study-3330-5309-9553
-          folder: /jar
+          folder: ./jar
