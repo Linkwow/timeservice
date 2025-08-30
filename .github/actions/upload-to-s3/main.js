@@ -7,7 +7,7 @@ function run() {
     let region = core.getInput('region', {required: true});
     let folder = core.getInput('folder', {required: true});
 
-    exec.exec('ls')
+    exec.exec('ls ./target/')
     exec.exec(`aws s3 sync ${folder} s3://${bucket} --region ${region}`);
 }
 
