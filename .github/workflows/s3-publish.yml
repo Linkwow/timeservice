@@ -46,7 +46,7 @@ jobs:
 
       - name: Publish to s3
         id: publisher
-        uses: ./.github/actions/upload-to-s3
+        uses: ./.github/actions/upload-to-s3-js
         with:
           bucket: github-actions-study-3330-5309-9553
           folder: ./jar

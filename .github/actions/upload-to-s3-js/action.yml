@@ -1,6 +1,6 @@
-name: upload-to-s3
+name: Upload to s3
 author: Tungsten
-description: Deploy to AWS
+description: Upload package to AWS
 inputs:
   bucket:
     description: s3 bucket
@@ -13,7 +13,7 @@ inputs:
     description: The folder from s3 bucket
     required: true
   outputs:
-    bucket-url:
+    s3-bucket-url:
       description: Url of s3 bucket
 runs:
   using: node16

@@ -11,7 +11,7 @@ function run() {
     exec.exec(`aws s3 sync ${folder} s3://${bucket} --region ${region}`)
 
     let s3Url = `http://${bucket}.s3-website-us-east-1.amazonaws.com/`
-    core.setOutput('bucket-url', s3Url)
+    core.setOutput('s3-bucket-url', s3Url)
 }
 
 run();
