@@ -12,6 +12,9 @@ inputs:
   folder:
     description: The folder from s3 bucket
     required: true
+  outputs:
+    bucket-url:
+      description: Url of s3 bucket
 runs:
   using: node16
   main: main.js
