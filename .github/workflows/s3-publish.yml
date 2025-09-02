@@ -2,6 +2,8 @@ name: Publish to s3
 on: push
 jobs:
   publish-to-s3:
+    permissions:
+      id-token: write
     environment:
       name: Test
     #since the 'environment' is used the secrets and env vars are available only on job level
