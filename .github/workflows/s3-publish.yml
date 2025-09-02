@@ -46,12 +46,11 @@ jobs:
 
       - name: Publish to s3
         id: publisher
-        uses: ./.github/actions/upload-to-s3-js
+        uses: ./.github/actions/upload-to-s3-docker
         with:
           bucket: github-actions-study-3330-5309-9553
           folder: ./jar
 
       - name: Print bucket url
         run: |
-          echo "s3 url is:" ${{ steps.publisher.outputs.bucket-url }}
-
+          echo "s3 url is:" ${{ steps.publisher.outputs.s3-bucket-url }}

@@ -1,0 +1,20 @@
+name: Upload to s3
+author: Tungsten
+description: Upload package to AWS
+inputs:
+  bucket:
+    description: s3 bucket
+    required: true
+  region:
+    description: AWS region
+    required: false
+    default: us-east-1
+  folder:
+    description: The folder from s3 bucket
+    required: true
+  outputs:
+    s3-bucket-url:
+      description: Url of s3 bucket
+runs:
+  using: docker
+  image: Dockerfile
